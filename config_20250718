@@ -3,6 +3,8 @@
 # 最后更新: 2025-07-18
 
 [General]
+# 敏感信息放本地 MIIT等
+include = local-sensitive.conf
 external-controller-access = @127.0.0.1:6170
 exclude-simple-hostnames = true
 show-error-page-for-reject = true
