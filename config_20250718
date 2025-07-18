@@ -1,0 +1,116 @@
+# Surge 配置文件
+# 版本: v1.1
+# 最后更新: 2025-07-18
+
+[General]
+external-controller-access = @127.0.0.1:6170
+exclude-simple-hostnames = true
+show-error-page-for-reject = true
+disable-geoip-db-auto-update = false
+ipv6 = false
+ipv6-vif = disabled
+internet-test-url = http://www.baidu.com/generate_204
+proxy-test-url = http://www.google.com/generate_204
+test-timeout = 3
+proxy-test-udp = www.apple.com@64.6.64.6
+http-api-tls = false
+http-api-web-dashboard = false
+udp-policy-not-supported-behaviour = REJECT
+udp-priority = true
+loglevel = notify
+skip-proxy = 127.0.0.0/8, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local, captive.apple.com
+always-real-ip = *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com*.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.battlenet.com.cn, *.battlenet.com, *.blzstatic.cn, *.battle.net
+all-hybrid = false
+allow-wifi-access = false
+allow-hotspot-access = false
+wifi-assist = false
+wifi-access-http-port = 6152
+wifi-access-socks5-port = 6153
+include-local-networks = false
+include-apns = false
+use-default-policy-if-wifi-not-primary = true
+read-etc-hosts = true
+allow-dns-svcb = false
+doh-skip-cert-verification = false
+encrypted-dns-follow-outbound-mode = false
+geoip-maxmind-url = https://ruleset.dev/dh.mmdb
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+dns-server = 223.5.5.5, 114.114.114.114, 119.29.29.29
+doh-follow-outbound-mode = false
+include-all-networks = false
+include-cellular-services = false
+vif-mode = auto
+use-local-host-item-for-proxy = true
+
+
+[Proxy Group]
+🇭🇰 香港节点 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=港|🇭🇰|香港|HK|Hong, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+🇯🇵 日本节点 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=日|🇯🇵|日本|JP|Japan, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+🇺🇲 美国节点 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=美|🇺🇸|美国|US|United States|America, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+🇸🇬 狮城节点 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=坡|🇸🇬|新加坡|狮城|SG|Singapore, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+🇨🇳 台湾节点 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=台|tw|台湾|TW|Tai, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+# 自动测速选择（自动切换最快的节点）
+AutoTest = url-test, policy-path=https://sub.store/download/ikuu20250718?target=Surge, url=http://www.gstatic.com/generate_204, interval=600, tolerance=50
+下载专用 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=0\.|下载, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
+节点选择 = select, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, AutoTest, DIRECT
+PayPal = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+OpenAI = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+YouTube = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+Netflix = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+Telegram = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+Disney = select, 节点选择, "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", DIRECT
+
+
+[Rule]
+DOMAIN-SUFFIX,gjwlyy.com,DIRECT // Added for: womanhospital-oss.gjwlyy.com:443
+DOMAIN-SUFFIX,mijia.tech,DIRECT // Added for: api.mijia.tech:443
+# Telegram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
+# Paypal
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list,PayPal
+# Youtube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,YouTube
+# Google
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Google/Google.list,节点选择
+# OpenAI
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list,OpenAI
+# Netflix
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list,Netflix
+# Disney
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Disney
+# 腾讯视频
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TencentVideo/TencentVideo.list,DIRECT
+# 谷歌中国服务
+RULE-SET,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list,节点选择
+# 本地/局域网地址
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
+# Apple
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,DIRECT
+# 中国列表
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_Domain.list,DIRECT
+# 国内媒体列表
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,DIRECT
+# 中国ASN
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaASN/ChinaASN.list,DIRECT
+# 国外媒体列表
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,节点选择
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,节点选择
+# Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,节点选择
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,节点选择
+# 中国IP
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaIPs/ChinaIPs.list,DIRECT
+# China
+GEOIP,CN,DIRECT,no-resolve
+# Final
+FINAL,DIRECT
+
+[Host]
+api.twitter.com = 2606:4700:4700::1001
+localhost = 127.0.0.1
+
+[URL Rewrite]
+^https?://(www.)?g.cn https://www.google.com 302
+^https?://(www.)?google.cn https://www.google.com 302
