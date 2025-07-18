@@ -51,7 +51,7 @@ use-local-host-item-for-proxy = true
 🏁 AutoTest = url-test, policy-path=https://sub.store/download/ikuu20250718?target=Surge, url=http://www.gstatic.com/generate_204, interval=600, tolerance=50
 下载专用 = select, policy-path=https://sub.store/download/ikuu20250718?target=Surge, policy-regex-filter=0\.|下载, interval=600, tolerance=50,update-interval=43200, include-all-proxies=0
 # 流媒体和服务通用组
-Streaming = select, 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 下载专用, 🇸🇬 狮城节点, CN 台湾节点, 🇺🇸 美国节点, DIRECT
+Streaming = select, 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 下载专用, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇺🇸 美国节点, DIRECT
 # 服务组
 PayPal = select, Streaming
 OpenAI = select, Streaming
